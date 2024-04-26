@@ -19,7 +19,7 @@ qm create ${VM_ID:-8000} --name nixos-test --memory 2048 --cores 4 --cpu cputype
 qm set ${VM_ID:-8000} --cdrom local:iso/$FILENAME 
 qm set ${VM_ID:-8000} --scsi0 ${VM_STORAGE:-local-lvm}:32
 qm set ${VM_ID:-8000} --agent enabled=1,type=virtio,fstrim_cloned_disks=1 --localtime 1
-qm start $VM_ID
+qm start ${VM_ID:-8000}
 ```
 
 ### Install in the VM console
