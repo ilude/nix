@@ -25,11 +25,28 @@ qm start ${VM_ID:-8000}
 ### Install in the VM console
 ```
 sudo -i
-nix-shell -p curl
-curl https://t.ly/_c10E >> setup
-bash setup
-# change password in file
+parted /dev/sda -- mklabel msdos
+parted /dev/sda -- mkpart primary 1MB -8GB
+parted /dev/sda -- mkpart primary linux-swap -8GB 100%
+
+mkfs.ext4 -L nixos /dev/sda1
+mkswap -L swap /dev/sda2
+swapon /dev/sda2
+mount /dev/disk/by-label/nixos /mnt
+nixos-generate-config --root /mnt
+
+nano /mnt/etc/nixos/configuration.nix
 
 nixos-install
 reboot
 ```
+
+
+### notes
+
+```
+nix-shell -p curl
+curl https://t.ly/_c10E >> setup
+bash setup
+```
+
