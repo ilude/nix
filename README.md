@@ -4,7 +4,6 @@
 
 ```
 URL="https://channels.nixos.org/nixos-23.11/latest-nixos-minimal-x86_64-linux.iso"
-# Get the filename from the URL
 FILENAME="${URL##*/}"
 LOCAL_IMAGE=/var/lib/vz/template/iso/$FILENAME
 if [[ ! -f $LOCAL_IMAGE ]]; then 
