@@ -17,7 +17,8 @@ fi
 qm create ${VM_ID:-8000} --name nixos-test --memory 2048 --cores 4 --cpu cputype=host
 qm set ${VM_ID:-8000} --agent 1 --machine q35 --ostype l26 --onboot 1 --scsihw virtio-scsi-pci 
 qm set ${VM_ID:-8000} --net0 virtio,bridge=vmbr0 --ipconfig0 ip=dhcp
-qm set ${VM_ID:-8000} --scsi0 ${VM_STORAGE:-local-lvm}:32 --ide2 local:iso/$FILENAME
+# media=cdrom is SUPER important to boot order, DO NOT remove it or your life will be pain!
+qm set ${VM_ID:-8000} --scsi0 ${VM_STORAGE:-local-lvm}:32 --ide2 local:iso/$FILENAME,media=cdrom 
 qm start ${VM_ID:-8000}
 
 ```
