@@ -18,7 +18,7 @@ qm create ${VM_ID:-8000} --name nixos-test --memory 2048 --cores 4 --cpu cputype
 qm set ${VM_ID:-8000} --net0 virtio,bridge=vmbr0 -ipconfig0 ip=dhcp
 qm set ${VM_ID:-8000} --scsi0 ${VM_STORAGE:-local-lvm}:32
 qm set ${VM_ID:-8000} --ide2 local:iso/$FILENAME 
-qm set ${VM_ID:-8000} --boot cda
+qm set ${VM_ID:-8000} --boot dc
 qm set ${VM_ID:-8000} --agent enabled=1,type=virtio,fstrim_cloned_disks=1 --localtime 1
 qm start ${VM_ID:-8000}
 
