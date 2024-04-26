@@ -48,3 +48,12 @@ nixos-install
 
 reboot
 ```
+
+### After reboot
+```
+# edit configuration as you like
+sudo nano /etc/nixos/configuration.nix
+
+# apply configuration changes
+sudo nixos-rebuild switch
+```
