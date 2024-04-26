@@ -40,7 +40,7 @@
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" "systemd-joural" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
-    #password = "SuperSecretPasswordHere";
+    password = "";
     #packages = with pkgs; [];
   };
 
