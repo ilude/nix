@@ -46,7 +46,7 @@ reboot
 
 ```
 nix-shell -p curl
-curl https://t.ly/_c10E >> setup
+curl -L https://t.ly/_c10E >> setup
 bash setup
 ```
 
