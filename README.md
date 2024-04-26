@@ -29,7 +29,9 @@ qm start ${VM_ID:-8000}
 sudo -i
 nix-shell -p curl
 curl -L https://t.ly/_c10E > setup
-bash -x setup
+bash -ex setup
+
+# change password line and save
 
 nixos-install
 reboot
