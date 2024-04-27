@@ -7,10 +7,10 @@
   time.timeZone = "America/New_York";
   #time.timeZone = "America/Los_Angeles";
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account.
   users.users.anvil = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "systemd-journal" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" "systemd-journal" ];
     shell = pkgs.zsh;
     password = "";
     #packages = with pkgs; [];
@@ -83,11 +83,9 @@
     zsh-syntax-highlighting
   ];
 
-
-  # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.qemuGuest.enable = true;
   virtualisation.docker.enable = true;
 
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "23.11";
 }
