@@ -15,7 +15,7 @@
 ## Create Proxmox VM
 copy and paste the following into a proxmox terminal and run it:
 
-```
+```bash
 URL="https://channels.nixos.org/nixos-23.11/latest-nixos-minimal-x86_64-linux.iso"
 FILENAME="${URL##*/}"
 LOCAL_IMAGE=/var/lib/vz/template/iso/$FILENAME
@@ -38,7 +38,7 @@ qm start ${VM_ID:-8000}
 
 ## Go to the VM console
 Run the following two commands in the VM console (you'll have to type them in, since you can't copy and paste in the console)
-```
+```bash
 # install curl
 
 nix-shell -p curl
