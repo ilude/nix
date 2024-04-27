@@ -21,10 +21,10 @@ if [ ! -b "$DEVICE" ]; then
 fi
 
 # List partitions on the device
-PARTITIONS=$(lsblk "$DEVICE" --output NAME --noheadings --raw)
+PARTITIONS=$(lsblk "$DEVICE" --output NAME --noheadings --raw | wc -1)
 
 # Check if partitions exist
-if [ -n "$PARTITIONS" ]; then
+if [ "$PARTITIONS" != 1 ]; then
     echo "Looks like the disk partitions are already setup, skipping this step!"
 else
     parted $DEVICE -- mklabel msdos
