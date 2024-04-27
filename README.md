@@ -1,6 +1,9 @@
-### Create Proxmox VM
+## Links
+[Awesome Nix](https://github.com/nix-community/awesome-nix)
 
-#### Download nixos minimal iso into lvm-local
+[Nix Package Search](https://search.nixos.org/packages)
+
+## Create Proxmox VM
 
 ```
 URL="https://channels.nixos.org/nixos-23.11/latest-nixos-minimal-x86_64-linux.iso"
@@ -23,7 +26,7 @@ qm start ${VM_ID:-8000}
 
 ```
 
-### Must be manually entered into the VM console! 
+## Must be manually entered into the VM console! 
 (for now at least)
 ```
 # become root
@@ -58,5 +61,4 @@ sudo nano /etc/nixos/configuration.nix
 sudo nixos-rebuild switch
 ```
 
-[Awesome Nix](https://github.com/nix-community/awesome-nix)
-[Nix Package Search](https://search.nixos.org/packages)
+
