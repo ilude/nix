@@ -48,7 +48,7 @@ export HASHED_PASSWORD=$(mkpasswd "$PW")
 curl -s "https://raw.githubusercontent.com/ilude/nix/main/configuration.nix?$(date +%s)" > configuration.nix
 
 # process the template
-envsubst < configuration.nix > /mnt/etc/nixos/configuration.nix
+envsubst '${HASHED_PASSWORD}' < configuration.nix > /mnt/etc/nixos/configuration.nix
 
 nixos-install
 
