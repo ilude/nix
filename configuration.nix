@@ -37,7 +37,6 @@
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
 
   # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
   # console = {
   #   font = "Lat2-Terminus16";
   #   keyMap = "us";
