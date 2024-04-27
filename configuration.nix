@@ -53,18 +53,16 @@
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
 
-  
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     bash
-    curl
+    cloud-init
     coreutils
+    curl
     docker
     docker-buildx
     docker-compose
-    #nvidia-docker
     eza
     findutils
     fzf
