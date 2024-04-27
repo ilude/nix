@@ -3,6 +3,8 @@
 
 [Nix Package Search](https://search.nixos.org/packages)
 
+[NixLang Wiki](https://nixlang.wiki/)
+
 ## Create Proxmox VM
 
 ```
