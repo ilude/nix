@@ -5,7 +5,7 @@ set -e
 if [ "$EUID" -ne 0 ]; then
     # If not, re-execute the script with sudo
     echo "This script requires root privileges. Elevating..."
-    sudo "$0" "$@"
+    sudo bash "$0" "$@"
     exit $?
 fi
 
