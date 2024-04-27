@@ -3,6 +3,13 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
+  nix.settings = {
+    auto-optimise-store = true;
+    experimental-features = [ "nix-command" "flakes" "repl-flake" ];
+  };
+
+  system.autoUpgrade.enable = true;
+
   # Set your time zone.
   time.timeZone = "America/New_York";
   #time.timeZone = "America/Los_Angeles";
@@ -16,8 +23,13 @@
     #packages = with pkgs; [];
   };
 
-  programs.zsh.enable = true;
-  programs.nix-ld.enable = true;
+  users.defaultUserShell = pkgs.zsh;
+  environment.shells = [ pkgs.zsh ];
+
+  programs = { 
+    zsh.enable = true;
+    nix-ld.enable = true; 
+  };
 
   security.sudo.extraRules= [
   { users = [ "anvil" ];
@@ -41,9 +53,12 @@
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
 
+  
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    bash
     curl
     coreutils
     docker
@@ -59,9 +74,11 @@
     htop
     iproute2
     jq
+    killall
     less
     libuuid
     linuxHeaders
+    mkpasswd
     netcat
     nettools
     nmap
@@ -74,8 +91,10 @@
     ssh-import-id
     strace
     sysstat
+    tealdeer
     tree
     tzdata
+    unzip
     util-linux
     wget
     yq
