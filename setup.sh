@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 set -e
-set -x
-set -o xtrace
+
+nix-env -iA nixos.envsubst
 
 DEVICE="/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0"
 if [ ! -b "$DEVICE" ]; then
