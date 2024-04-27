@@ -70,7 +70,7 @@ envsubst "${HASHED_PASSWORD}" < configuration.nix > /mnt/etc/nixos/configuration
 nixos-install
 
 while true; do
-    read -pr "Do you want to reboot now? (y/n) " yn
+    read -p "Do you want to reboot now? (y/n) " yn
     case $yn in
         [Yy]* )
             reboot
