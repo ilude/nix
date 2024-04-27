@@ -22,8 +22,7 @@ PARTITIONS=$(lsblk "$DEVICE" --output NAME --noheadings --raw)
 
 # Check if partitions exist
 if [ -n "$PARTITIONS" ]; then
-    echo "The device $DEVICE has the following partitions:"
-    echo "$PARTITIONS"
+    echo "Looks like the disk partitions are already setup, skipping this step!"
 else
     parted $DEVICE -- mklabel msdos
     parted $DEVICE -- mkpart primary 1MB -8GB
@@ -43,7 +42,7 @@ if [ -z "${PW}" ]; then
     echo
 fi
 # Generate the hashed password
-HASHED_PASSWORD=$(mkpasswd "$PW")
+export HASHED_PASSWORD=$(mkpasswd "$PW")
 
 # download the configuation.nix template
 curl -s "https://raw.githubusercontent.com/ilude/nix/main/configuration.nix?$(date +%s)" > configuration.nix
