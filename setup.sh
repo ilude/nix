@@ -35,8 +35,9 @@ else
     mkswap -L swap $DEVICE-part2
     swapon /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0-part2
     mount /dev/disk/by-label/nixos /mnt
-    nixos-generate-config --root /mnt
 fi
+
+nixos-generate-config --root /mnt
 
 HASHED_PW_FILE="$HOME/.hashed_pw"
 
