@@ -19,7 +19,7 @@
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" "systemd-journal" ];
     shell = pkgs.zsh;
-    hashedPassword = "${HASHED_PASSWORD}";
+    hashedPassword = "$y$j9T$Hl73cfft4MTVyPXC7E7hY.$maLDMgGp4mfRYsmdTgiXXonKOhuxHhE0UfjvKhlYtr/";
     #packages = with pkgs; [];
   };
 
@@ -46,50 +46,53 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    bash
-    cloud-init
-    coreutils
-    curl
-    docker
-    docker-buildx
-    docker-compose
-    eza
-    findutils
-    fzf
-    git
-    gnumake
-    gnutar
-    htop
-    iproute2
-    jq
-    killall
-    less
-    libuuid
-    linuxHeaders
-    mkpasswd
-    netcat
-    nettools
-    nmap
-    openssl
-    python3
-    python3Packages.pip
-    ripgrep
-    rsync
-    spice-vdagent
-    ssh-import-id
-    strace
-    sysstat
-    tealdeer
-    tree
-    tzdata
-    unzip
-    util-linux
-    wget
-    yq
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-  ];
+  environment = {
+    systemPackages = with pkgs.xfce // pkgs; [
+      bash
+      cloud-init
+      coreutils
+      curl
+      docker
+      docker-buildx
+      docker-compose
+      eza
+      findutils
+      fzf
+      git
+      gnumake
+      gnutar
+      htop
+      iproute2
+      jq
+      killall
+      less
+      libuuid
+      linuxHeaders
+      mkpasswd
+      netcat
+      nettools
+      nmap
+      openssl
+      python3
+      python3Packages.pip
+      ripgrep
+      rsync
+      spice-vdagent
+      ssh-import-id
+      strace
+      sysstat
+      tealdeer
+      tree
+      tzdata
+      unzip
+      util-linux
+      wget
+      yq
+      zsh-autosuggestions
+      zsh-syntax-highlighting
+    ];
+    variables.TZ = config.time.timeZone;
+  };
 
   #services.cloud-init.enable = true;
   services.openssh.enable = true;
