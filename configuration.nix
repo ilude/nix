@@ -19,10 +19,11 @@
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" "systemd-journal" ];
     shell = pkgs.zsh;
-    password = "";
+    hashedPassword = "$HASHED_PASSWORD";
     #packages = with pkgs; [];
   };
 
+  security.sudo.wheelNeedsPassword = false;
   users.defaultUserShell = pkgs.zsh;
   environment.shells = [ pkgs.zsh ];
 
@@ -30,16 +31,6 @@
     zsh.enable = true;
     nix-ld.enable = true; 
   };
-
-  security.sudo.extraRules= [
-  { users = [ "anvil" ];
-     commands = [
-        { command = "ALL" ;
-          options= [ "NOPASSWD" ]; # "SETENV" # Adding the following could be a good idea
-        }
-      ];
-    }
-  ];
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
