@@ -55,11 +55,12 @@ else
 
     # Generate the hashed password
     HASHED_PASSWORD=$(mkpasswd "$PW")
-    export HASHED_PASSWORD
+    
 
     # Store the hashed password in the file
     echo "$HASHED_PASSWORD" > "$HASHED_PW_FILE"
 fi
+export HASHED_PASSWORD
 
 # download the configuation.nix template
 curl -s "https://raw.githubusercontent.com/ilude/nix/main/configuration.nix?$(date +%s)" > configuration.nix
