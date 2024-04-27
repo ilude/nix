@@ -7,6 +7,11 @@
 
 [https://nix.dev/](https://nix.dev/)
 
+[Nix Starter Config](https://github.com/Misterio77/nix-starter-configs)
+
+[NixOS & Flakes Book](https://nixos-and-flakes.thiscute.world/introduction/)
+
+
 ## Create Proxmox VM
 
 ```
