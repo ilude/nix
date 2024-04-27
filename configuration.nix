@@ -91,6 +91,7 @@
     zsh-syntax-highlighting
   ];
 
+  services.cloud-init.enable = true;
   services.openssh.enable = true;
   services.qemuGuest.enable = true;
   virtualisation.docker.enable = true;
