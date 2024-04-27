@@ -36,8 +36,8 @@ qm start ${VM_ID:-8000}
 
 ```
 
-## Must be manually entered into the VM console! 
-(for now at least)
+## Go to the VM console
+Run the following 2 commands in the VM console (you'll have to type them in, since you can't copy and paste in the console)
 ```
 # install curl
 
