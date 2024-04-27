@@ -7,16 +7,17 @@
   time.timeZone = "America/New_York";
   #time.timeZone = "America/Los_Angeles";
 
-  # Define a user account. 
+  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.anvil = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "systemd-journal" ]; 
+    extraGroups = [ "wheel" "docker" "systemd-journal" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
     password = "";
     #packages = with pkgs; [];
   };
 
   programs.zsh.enable = true;
+  programs.nix-ld.enable = true;
 
   security.sudo.extraRules= [
   { users = [ "anvil" ];
@@ -44,19 +45,42 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     curl
+    coreutils
     docker
     docker-buildx
     docker-compose
     #nvidia-docker
+    eza
+    findutils
+    fzf
     git
-    jq
-    yq
     gnumake
-    tree
+    gnutar
+    htop
+    iproute2
+    jq
+    less
+    libuuid
+    linuxHeaders
+    netcat
+    nettools
+    nmap
+    openssl
     python3
     python3Packages.pip
+    ripgrep
+    rsync
+    spice-vdagent
     ssh-import-id
+    strace
+    sysstat
+    tree
+    tzdata
+    util-linux
     wget
+    yq
+    zsh-autosuggestions
+    zsh-syntax-highlighting
   ];
 
 
@@ -65,5 +89,5 @@
   services.qemuGuest.enable = true;
   virtualisation.docker.enable = true;
 
-  system.stateVersion = "23.11";
+  system.stateVersion = "23.11"; # Did you read the comment?
 }
