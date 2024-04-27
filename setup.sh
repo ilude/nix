@@ -70,6 +70,12 @@ envsubst "${HASHED_PASSWORD}" < configuration.nix > /mnt/etc/nixos/configuration
 
 nixos-install
 
+# Check if the directory exists
+if [ -d "/mnt/home/anvil" ]; then
+    touch /mnt/home/anvil/.zshrc
+    chown 1000:100 /mnt/home/anvil/.zshrc
+fi
+
 while true; do
     read -p "Do you want to reboot now? (y/n) " yn
     case $yn in
