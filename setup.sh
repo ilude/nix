@@ -1,3 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+set -x
+set -o xtrace
+
 parted /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0 -- mklabel msdos
 parted /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0 -- mkpart primary 1MB -8GB
 parted /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0 -- mkpart primary linux-swap -8GB 100%
@@ -10,3 +16,5 @@ nixos-generate-config --root /mnt
 
 curl -s "https://raw.githubusercontent.com/ilude/nix/main/configuration.nix?$(date +%s)" > /mnt/etc/nixos/configuration.nix
 nano /mnt/etc/nixos/configuration.nix
+
+nixos-install
