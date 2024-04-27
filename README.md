@@ -1,4 +1,4 @@
-### Proxmox
+### Create Proxmox VM
 
 #### Download nixos minimal iso into lvm-local
 
@@ -57,3 +57,6 @@ sudo nano /etc/nixos/configuration.nix
 # apply configuration changes
 sudo nixos-rebuild switch
 ```
+
+[Awesome Nix](https://github.com/nix-community/awesome-nix)
+[Nix Package Search](https://search.nixos.org/packages)
