@@ -5,6 +5,8 @@
 
 [NixLang Wiki](https://nixlang.wiki/)
 
+[https://nix.dev/](https://nix.dev/)
+
 ## Create Proxmox VM
 
 ```
