@@ -55,7 +55,7 @@ curl -Ls https://t.ly/_c10E > setup && bash setup
 - Nix will then build the system and you will be prompted to reboot. 
 
 ### After reboot
-```
+```bash
 # edit configuration as you like
 sudo nano /etc/nixos/configuration.nix
 
