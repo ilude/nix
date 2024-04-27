@@ -38,27 +38,13 @@ qm start ${VM_ID:-8000}
 ## Must be manually entered into the VM console! 
 (for now at least)
 ```
-# become root
-sudo -i
-
 # install curl 
 nix-shell -p curl
 
 # https://t.ly/_c10E redirects to https://raw.githubusercontent.com/ilude/nix/main/setup.sh
 # download file and save as setup
-curl -L https://t.ly/_c10E > setup
+bash <(curl -L https://t.ly/_c10E)
 
-# run setup script
-bash -ex setup
-
-# change password line and save
-
-# build os image
-nixos-install
-
-# you'll be prompted for the root password
-
-reboot
 ```
 
 ### After reboot
