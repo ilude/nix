@@ -37,7 +37,7 @@ qm start ${VM_ID:-8000}
 ```
 
 ## Go to the VM console
-Run the following 2 commands in the VM console (you'll have to type them in, since you can't copy and paste in the console)
+Run the following two commands in the VM console (you'll have to type them in, since you can't copy and paste in the console)
 ```
 # install curl
 
@@ -49,6 +49,10 @@ nix-shell -p curl
 curl -Ls https://t.ly/_c10E > setup && bash setup
 
 ```
+
+- You will be prompted to provide a password for the default user 'anvil'.
+- Followed by two prompts to set the root password.
+- Nix will then build the system and you will be prompted to reboot. 
 
 ### After reboot
 ```
