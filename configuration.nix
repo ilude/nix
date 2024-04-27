@@ -19,7 +19,7 @@
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" "systemd-journal" ];
     shell = pkgs.zsh;
-    hashedPassword = "$y$j9T$Hl73cfft4MTVyPXC7E7hY.$maLDMgGp4mfRYsmdTgiXXonKOhuxHhE0UfjvKhlYtr/";
+    hashedPassword = "${HASHED_PASSWORD}";
     #packages = with pkgs; [];
   };
 
