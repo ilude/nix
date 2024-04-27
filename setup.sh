@@ -2,6 +2,13 @@
 
 set -e
 
+if [ "$EUID" -ne 0 ]; then
+    # If not, re-execute the script with sudo
+    echo "This script requires root privileges. Elevating..."
+    sudo "$0" "$@"
+    exit $?
+fi
+
 nix-env -iA nixos.envsubst
 
 DEVICE="/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0"
