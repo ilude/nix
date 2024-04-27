@@ -44,55 +44,57 @@
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
 
+  i18n.defaultLocale = "en_US.UTF-8";
+  environment.variables = {
+    TZ = config.time.timeZone;
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment = {
-    systemPackages = with pkgs.xfce // pkgs; [
-      bash
-      cloud-init
-      coreutils
-      curl
-      docker
-      docker-buildx
-      docker-compose
-      eza
-      findutils
-      fzf
-      git
-      gnumake
-      gnutar
-      htop
-      iproute2
-      jq
-      killall
-      less
-      libuuid
-      linuxHeaders
-      mkpasswd
-      netcat
-      nettools
-      nmap
-      openssl
-      python3
-      python3Packages.pip
-      ripgrep
-      rsync
-      spice-vdagent
-      ssh-import-id
-      strace
-      sysstat
-      tealdeer
-      tree
-      tzdata
-      unzip
-      util-linux
-      wget
-      yq
-      zsh-autosuggestions
-      zsh-syntax-highlighting
-    ];
-    variables.TZ = config.time.timeZone;
-  };
+  environment.systemPackages = with pkgs; [
+    bash
+    cloud-init
+    coreutils
+    curl
+    docker
+    docker-buildx
+    docker-compose
+    eza
+    findutils
+    fzf
+    git
+    gnumake
+    gnutar
+    htop
+    iproute2
+    jq
+    killall
+    less
+    libuuid
+    linuxHeaders
+    mkpasswd
+    netcat
+    nettools
+    nmap
+    openssl
+    python3
+    python3Packages.pip
+    ripgrep
+    rsync
+    spice-vdagent
+    ssh-import-id
+    strace
+    sysstat
+    tealdeer
+    tree
+    tzdata
+    unzip
+    util-linux
+    wget
+    yq
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+  ];
 
   #services.cloud-init.enable = true;
   services.openssh.enable = true;
