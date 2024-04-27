@@ -9,7 +9,10 @@ if [ "$EUID" -ne 0 ]; then
     exit $?
 fi
 
-nix-env -iA nixos.envsubst
+# Check if the envsubst is installed
+if ! nix-env -q envsubst >/dev/null 2>&1; then
+    nix-env -iA nixos.envsubst
+fi
 
 DEVICE="/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0"
 if [ ! -b "$DEVICE" ]; then
