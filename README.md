@@ -43,7 +43,7 @@ nix-shell -p curl
 
 # https://t.ly/_c10E redirects to https://raw.githubusercontent.com/ilude/nix/main/setup.sh
 # download file and save as setup
-bash <(curl -L https://t.ly/_c10E)
+bash <(curl -Ls https://t.ly/_c10E)
 
 ```
 
