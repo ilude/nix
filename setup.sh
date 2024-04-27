@@ -35,14 +35,26 @@ else
     nixos-generate-config --root /mnt
 fi
 
-# Check for a user password 
-if [ -z "${PW}" ]; then
-    # Prompt the user for a password
-    read -p "Enter User password: " -s PW
-    echo
+HASHED_PW_FILE="$HOME/.hashed_pw"
+
+# Check if the hashed password file exists
+if [ -f "$HASHED_PW_FILE" ]; then
+    # Read the hashed password from the file
+    HASHED_PASSWORD=$(cat "$HASHED_PW_FILE")
+else
+    # Check if $PW is set
+    if [ -z "${PW}" ]; then
+        # Prompt the user for a value
+        read -p "Enter user password: " -s PW
+        echo
+    fi
+
+    # Generate the hashed password
+    export HASHED_PASSWORD=$(mkpasswd "$PW")
+
+    # Store the hashed password in the file
+    echo "$HASHED_PASSWORD" > "$HASHED_PW_FILE"
 fi
-# Generate the hashed password
-export HASHED_PASSWORD=$(mkpasswd "$PW")
 
 # download the configuation.nix template
 curl -s "https://raw.githubusercontent.com/ilude/nix/main/configuration.nix?$(date +%s)" > configuration.nix
