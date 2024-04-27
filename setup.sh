@@ -48,12 +48,13 @@ else
     # Check if $PW is set
     if [ -z "${PW}" ]; then
         # Prompt the user for a value
-        read -p "Enter user password: " -s PW
+        read -p "Enter user password: " -sr PW
         echo
     fi
 
     # Generate the hashed password
-    export HASHED_PASSWORD=$(mkpasswd "$PW")
+    HASHED_PASSWORD=$(mkpasswd "$PW")
+    export HASHED_PASSWORD
 
     # Store the hashed password in the file
     echo "$HASHED_PASSWORD" > "$HASHED_PW_FILE"
@@ -63,12 +64,12 @@ fi
 curl -s "https://raw.githubusercontent.com/ilude/nix/main/configuration.nix?$(date +%s)" > configuration.nix
 
 # process the template
-envsubst '${HASHED_PASSWORD}' < configuration.nix > /mnt/etc/nixos/configuration.nix
+envsubst "${HASHED_PASSWORD}" < configuration.nix > /mnt/etc/nixos/configuration.nix
 
 nixos-install
 
 while true; do
-    read -p "Do you want to reboot now? (y/n) " yn
+    read -pr "Do you want to reboot now? (y/n) " yn
     case $yn in
         [Yy]* )
             reboot
