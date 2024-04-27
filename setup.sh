@@ -21,7 +21,7 @@ if [ ! -b "$DEVICE" ]; then
 fi
 
 # List partitions on the device
-PARTITIONS=$(lsblk "$DEVICE" --output NAME --noheadings --raw | wc -1)
+PARTITIONS=$(lsblk "$DEVICE" --output NAME --noheadings --raw | wc -l)
 
 # Check if partitions exist
 if [ "$PARTITIONS" != 1 ]; then
