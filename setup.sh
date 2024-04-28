@@ -31,7 +31,11 @@ else
     parted $DEVICE -- mkpart primary 1MB 
     parted $DEVICE -- set 1 boot on
 
+    sync
+
     mkfs.ext4 -L nixos $DEVICE-part1
+
+    sync
     
     # parted $DEVICE -- mkpart primary 1MB -8GB
     # parted $DEVICE -- mkpart primary linux-swap -8GB 100%
