@@ -28,12 +28,15 @@ if [ "$PARTITIONS" != 1 ]; then
     echo "Looks like the disk partitions are already setup, skipping this step!"
 else
     parted $DEVICE -- mklabel msdos
-    parted $DEVICE -- mkpart primary 1MB -8GB
-    parted $DEVICE -- mkpart primary linux-swap -8GB 100%
+    parted $DEVICE -- mkpart primary 1MB 
+    parted $DEVICE -- set 1 boot on
     
-    mkfs.ext4 -L nixos $DEVICE-part1
-    mkswap -L swap $DEVICE-part2
-    swapon /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0-part2
+    # parted $DEVICE -- mkpart primary 1MB -8GB
+    # parted $DEVICE -- mkpart primary linux-swap -8GB 100%
+    # mkfs.ext4 -L nixos $DEVICE-part1
+    # mkswap -L swap $DEVICE-part2
+    # swapon /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0-part2
+    
     mount /dev/disk/by-label/nixos /mnt
 fi
 
