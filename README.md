@@ -32,7 +32,7 @@ qm set ${VM_ID:-8000} --agent 1 --machine q35 --ostype l26 --onboot 1 --scsihw v
 qm set ${VM_ID:-8000} --net0 virtio,bridge=vmbr0 --ipconfig0 ip=dhcp
 # media=cdrom is SUPER important to boot order, DO NOT remove it or your life will be pain!
 qm set ${VM_ID:-8000} --scsi0 ${VM_STORAGE:-local-lvm}:32 --ide2 local:iso/$FILENAME,media=cdrom
-qm set ${VM_ID:-8000} --bios ovmf --efidisk0 $VM_STORAGE:0,pre-enrolled-keys=0,efitype=4m,size=528K 
+qm set ${VM_ID:-8000} --bios ovmf --efidisk0 ${VM_STORAGE:-local-lvm}:0,pre-enrolled-keys=0,efitype=4m,size=528K 
 qm start ${VM_ID:-8000}
 
 ```
