@@ -8,6 +8,6 @@ https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/virtualisation/digita
 
 https://gist.github.com/voidus/1230b200043b7f815e2513663d16353b
 
-https://discourse.nixos.org/t/a-cloudinit-image-for-use-in-proxmox/27519/6
+[A cloudinit image for use in proxmox](https://discourse.nixos.org/t/a-cloudinit-image-for-use-in-proxmox/27519/6)
 
 [How to have a minimal NixOS](https://discourse.nixos.org/t/how-to-have-a-minimal-nixos/22652/4)
