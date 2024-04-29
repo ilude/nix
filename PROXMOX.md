@@ -11,3 +11,8 @@
 [A cloudinit image for use in proxmox](https://discourse.nixos.org/t/a-cloudinit-image-for-use-in-proxmox/27519/6)
 
 [How to have a minimal NixOS](https://discourse.nixos.org/t/how-to-have-a-minimal-nixos/22652/4)
+
+[oci-image: init scripts to build and upload image](https://github.com/NixOS/nixpkgs/pull/119856)
+
+[nix-build man page](https://www.mankier.com/1/nix-build)
+
