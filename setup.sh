@@ -28,9 +28,9 @@ if [ "$PARTITIONS" != 1 ]; then
     echo "Looks like the disk partitions are already setup, skipping this step!"
 else
     parted $DEVICE -- mklabel gpt
-    parted $DEVICE -- mkpart root ext4 512MB 
+    parted $DEVICE -- mkpart root ext4 512MB 100%
     parted $DEVICE -- mkpart ESP fat32 1MB 512MB
-    parted $DEVICE -- set 3 esp on
+    parted $DEVICE -- set 2 esp on
 
     sync
 
