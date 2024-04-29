@@ -35,6 +35,9 @@
   # Use systemd-boot
   boot.loader.systemd-boot.enable = true;
 
+  # disable ipv6
+  networking.enableIPv6  = false;
+
   # Select internationalisation properties.
   # console = {
   #   font = "Lat2-Terminus16";
