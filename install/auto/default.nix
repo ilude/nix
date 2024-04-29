@@ -75,8 +75,12 @@
 						--no-root-passwd \
 						--cores 0
 
+					touch /home/nixos/.zshrc
+					touch /root/.zshrc
+
 					date +"%Y-%m-%d %H:%M" > /mnt/etc/birth-certificatte
-					${systemd}/bin/shutdown now "System build complete, rebooting now!"
+					echo "System build complete, rebooting now!"
+					${systemd}/bin/shutdown -r now "System build complete, rebooting now!"
 				'';
 				environment = config.nix.envVars // {
 					inherit (config.environment.sessionVariables) NIX_PATH;
