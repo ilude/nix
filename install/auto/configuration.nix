@@ -1,0 +1,135 @@
+{ config, lib, pkgs, ... }: {
+	imports = [
+		<nixpkgs/nixos/modules/profiles/all-hardware.nix>
+		<nixpkgs/nixos/modules/profiles/base.nix>
+		#installer-only ./hardware-configuration.nix
+	];
+
+	nixpkgs.config.allowUnfree = true;
+
+	security.sudo.wheelNeedsPassword = false;
+
+	# default hostname
+	networking.hostName = "nixos-install";
+	# disable ipv6
+  networking.enableIPv6  = false;
+
+	time.timeZone = "America/New_York";
+
+	services.openssh.enable = true;
+  services.qemuGuest.enable = true;
+	virtualisation.docker.enable = true;
+
+	nix.settings = {
+    auto-optimise-store = true;
+    experimental-features = [ "nix-command" "flakes" "repl-flake" ];
+  };
+
+	users.mutableUsers = false;
+	users.users.root = {
+		hashedPassword = "*";
+	};
+
+	users.users.anvil = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "docker" "systemd-journal" ];
+    shell = pkgs.zsh;
+    hashedPassword = "$y$j9T$GJe6ivAle/QQnjmnBL4Vh/$.5wrOAxlBPS7NcJ9gA/fa.75RVNjMCM3n0WeDi/RFS7";
+  };
+
+	systemd.services.setupuser = let
+    script = lib.getExe (pkgs.writeShellApplication {
+      name = "setupuser";
+      runtimeInputs = [ pkgs.ssh-import-id pkgs.openssh ];
+      text = ''
+        #!/usr/bin/env bash
+        ssh-import-id gh:ilude
+        touch ~/.zshrc
+      '';
+    });
+  in {
+    description = "Import SSH key from GitHub";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      User = "anvil";
+      Type = "oneshot";
+      ExecStart = "${script}";
+    };
+  };
+
+	users.defaultUserShell = pkgs.zsh;
+  environment.shells = [ pkgs.zsh ];
+
+	programs = {
+		# needed for vscode remote ssh
+    nix-ld.enable = true; 
+   	zsh = {
+      enable = true;
+      autosuggestions.enable = true;
+      zsh-autoenv.enable = false;
+      syntaxHighlighting.enable = true;
+   };
+};
+
+	i18n.defaultLocale = "en_US.UTF-8";
+  environment.variables = {
+    TZ = config.time.timeZone;
+  };
+
+	services.avahi = {
+		enable = true;
+		ipv4 = true;
+		ipv6 = true;
+		nssmdns = true;
+		publish = { enable = true; domain = true; addresses = true; };
+	};
+
+	environment.systemPackages = with pkgs; [
+		coreutils
+		curl
+    docker
+    docker-buildx
+		eza
+		file
+    findutils
+    fzf
+		git
+		gnumake
+    gnutar
+		htop
+		iproute2
+		just
+    jq
+    killall
+    less
+    libuuid
+    linuxHeaders
+		lsof
+		mkpasswd
+		nano
+    netcat
+    nettools
+    nmap
+		openssl
+		pciutils
+		python3
+    python3Packages.pip
+    ripgrep
+    rsync
+    spice-vdagent
+    ssh-import-id
+    strace
+    sysstat
+    tealdeer
+		tmux
+		tree
+		tzdata
+    unzip
+    util-linux
+    wget
+    yq
+		zip
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+	];
+}
