@@ -27,22 +27,22 @@ PARTITIONS=$(lsblk "$DEVICE" --output NAME --noheadings --raw | wc -l)
 if [ "$PARTITIONS" != 1 ]; then
     echo "Looks like the disk partitions are already setup, skipping this step!"
 else
-    parted $DEVICE -- mklabel msdos
-    parted $DEVICE -- mkpart primary 1MB 
-    parted $DEVICE -- set 1 boot on
+    parted $DEVICE -- mklabel gpt
+    parted $DEVICE -- mkpart root ext4 512MB 
+    parted $DEVICE -- mkpart ESP fat32 1MB 512MB
+    parted $DEVICE -- set 3 esp on
 
     sync
 
     mkfs.ext4 -L nixos $DEVICE-part1
+    mkfs.fat -F 32 -n boot  $DEVICE-part2 
 
     sync
     
-    # parted $DEVICE -- mkpart primary 1MB -8GB
-    # parted $DEVICE -- mkpart primary linux-swap -8GB 100%
-    # mkswap -L swap $DEVICE-part2
-    # swapon /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0-part2
-    
     mount /dev/disk/by-label/nixos /mnt
+
+    mkdir -p /mnt/boot
+    mount -o umask=077 /dev/disk/by-label/boot /mnt/boot
 fi
 
 nixos-generate-config --root /mnt

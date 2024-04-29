@@ -32,9 +32,8 @@
     nix-ld.enable = true; 
   };
 
-  # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
+  # Use systemd-boot
+  boot.loader.systemd-boot.enable = true;
 
   # Select internationalisation properties.
   # console = {
