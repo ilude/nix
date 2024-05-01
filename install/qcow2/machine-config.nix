@@ -50,14 +50,13 @@ in {
     networking.enableIPv6 = false;
     i18n.defaultLocale = "en_US.UTF-8";
 
-    # Set your time zone.
-    time.timeZone = "America/New_York";
-    #time.timeZone = "America/Los_Angeles";
-    environment.variables = { TZ = "America/New_York"; };
-
     services.openssh.enable = true;
     services.qemuGuest.enable = true;
     virtualisation.docker.enable = true;
+
+    # Set your time zone.
+    time.timeZone = "America/New_York";
+    environment.variables.TZ = "America/New_York";
 
     environment.systemPackages = with pkgs; [
       bash
@@ -103,7 +102,11 @@ in {
       util-linux
       wget
       yq
+      zsh
+      zsh-fzf-tab
+      zsh-completions
       zsh-autosuggestions
+      nix-zsh-completions
       zsh-syntax-highlighting
     ];
   };
