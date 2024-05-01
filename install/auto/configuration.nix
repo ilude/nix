@@ -37,25 +37,6 @@
 		hashedPassword = "$y$j9T$CiLH54UEhcnY/A04N8.Bz0$uegUxZq6IGKULc0H/SGChuay5hB6LkVGv4OJlRH4gf1";
 	};
 
-	systemd.services.setupuser = let
-		script = lib.getExe (pkgs.writeShellApplication {
-			name = "setupuser";
-			runtimeInputs = [ pkgs.ssh-import-id pkgs.openssh ];
-			text = ''
-				ssh-import-id gh:ilude
-				touch ~/.zshrc
-			'';
-		});
-	in {
-		description = "Import SSH key from GitHub";
-		wantedBy = [ "multi-user.target" ];
-		serviceConfig = {
-			User = "anvil";
-			Type = "oneshot";
-			ExecStart = "${script}";
-		};
-	};
-
 	users.defaultUserShell = pkgs.zsh;
 	environment.shells = [ pkgs.zsh ];
 
