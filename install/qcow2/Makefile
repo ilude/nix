@@ -1,5 +1,5 @@
 UPLOAD_HOST := root@192.168.16.16
-UPLOAD_DIR := /tmp
+
 UPLOAD_FILES := outputs/nixos.qcow2 scripts/create-vm.sh
 UPLOAD_MARKERS := $(addsuffix .uploaded,$(UPLOAD_FILES))
 PREREQS := $(UPLOAD_FILES) $(UPLOAD_MARKERS)
@@ -9,7 +9,7 @@ upload: $(PREREQS)
 
 %.uploaded: %
 	@echo "Uploading $< to $(UPLOAD_HOST):$(UPLOAD_DIR)/$(notdir $<)"
-	@scp "$<" "$(UPLOAD_HOST):$(UPLOAD_DIR)/$(notdir $<)"
+	@scp "$<" "$(UPLOAD_HOST):/tmp/$(notdir $<)"
 	@touch "$@"
 
 clean:
@@ -22,7 +22,6 @@ outputs/nixos.qcow2: .secrets build-qcow2.nix machine-config.nix | outputs
 
 outputs:
 	@mkdir -p $@
-
 
 echo:
 	@echo "prereqs: $(PREREQS)"
