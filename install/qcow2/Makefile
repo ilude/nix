@@ -19,12 +19,13 @@ upload: $(PREREQS)
 	@touch "$@"
 
 clean:
-	rm -rf outputs/nixos.qcow2 $(UPLOAD_MARKERS)
+	@rm -rf outputs/nixos.qcow2 $(UPLOAD_MARKERS)
 
 outputs/nixos.qcow2: .secrets build-qcow2.nix machine-config.nix | outputs
-	@echo "Building $@"
-	@nix-build '<nixpkgs/nixos>' -A config.system.build.qcow2 --arg configuration "{ imports = [ ./build-qcow2.nix ]; }"
-	@cp result/nixos.qcow2 $@
+	@scripts/build-qcow2.sh $@
+
+.secrets: scripts/create-secrets.sh
+	@scripts/create-secrets.sh
 
 outputs:
 	@mkdir -p $@
