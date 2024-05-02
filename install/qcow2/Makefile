@@ -18,9 +18,6 @@ upload: $(PREREQS)
 	@scp "$<" "$(UPLOAD_HOST):/tmp/$(notdir $<)"
 	@touch "$@"
 
-clean:
-	@rm -rf outputs/nixos.qcow2 $(UPLOAD_MARKERS)
-
 outputs/nixos.qcow2: .secrets build-qcow2.nix machine-config.nix | outputs
 	@scripts/build-qcow2.sh $@
 
@@ -29,6 +26,9 @@ outputs/nixos.qcow2: .secrets build-qcow2.nix machine-config.nix | outputs
 
 outputs:
 	@mkdir -p $@
+
+clean:
+	@rm -rf outputs/nixos.qcow2 $(UPLOAD_MARKERS)
 
 echo:
 	@echo "prereqs: $(PREREQS)"
