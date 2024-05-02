@@ -24,6 +24,7 @@ tags
 .env
 *.bak
 *.orig
+*.orig.*
 
 .DS_Store
 .mypy_cache

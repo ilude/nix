@@ -1,6 +1,6 @@
 # Check if .env file exists and if so, load the values
 ifneq ("$(wildcard .env)","")
-		include .env
+include .env
 endif
 
 # Default values
@@ -15,17 +15,19 @@ UPLOAD_FILES := outputs/nixos.qcow2 scripts/$(CREATE_VM_SCRIPT)
 # magic pixie dust to make the upload markers files
 UPLOAD_MARKERS := $(addsuffix .uploaded,$(UPLOAD_FILES))
 
-.PHONY: build upload clean echo
+.PHONY: build upload clean echo default completion
 
-upload: $(UPLOAD_MARKERS) build
-ifeq ($(filter it-live,$(MAKECMDGOALS)),)
-		@echo "upload completed, if you want to run the image use:"
-		@echo ""
-		@echo "  make it-live"
-		@echo ""
-endif
+default: upload
+
+upload: $(UPLOAD_MARKERS)
 
 build: $(UPLOAD_FILES)
+ifeq ($(filter it-live,$(MAKECMDGOALS)),)
+	@echo "upload completed, if you want to run the image use:"
+	@echo ""
+	@echo " make it-live"
+	@echo ""
+endif
 
 it-live: upload
 	@scripts/run-remote-script.sh $(UPLOAD_HOST) "/tmp/$(CREATE_VM_SCRIPT) $(VM_ID) $(VM_STORAGE)"
@@ -50,3 +52,9 @@ clean:
 echo:
 	@echo "UPLOAD_FILES: $(UPLOAD_FILES)"
 	@echo "UPLOAD_MARKERS: $(UPLOAD_MARKERS)"
+
+# Print message at the end of the run
+completion:
+	@echo "make $(or $(MAKECMDGOALS),default) completed at: $(shell date +"%Y-%m-%d %H:%M:%S")"
+
+$(or $(MAKECMDGOALS),default): completion
