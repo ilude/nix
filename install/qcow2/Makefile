@@ -6,7 +6,7 @@ outputs/.lastuploaded: outputs/nixos-compressed.qcow2
 	touch $@
 
 outputs/nixos-compressed.qcow2: outputs/.lastbuild 
-	qemu-img convert -c -O qcow result/nixos.qcow2 outputs/nixos-compressed.qcow2
+	-qemu-img convert -p -O qcow result/nixos.qcow2 outputs/nixos-compressed.qcow2
 
 outputs/.lastbuild: .secrets build-qcow2.nix machine-config.nix | outputs 
 	nix-build '<nixpkgs/nixos>' -A config.system.build.qcow2 --arg configuration "{ imports = [ ./build-qcow2.nix ]; }"
