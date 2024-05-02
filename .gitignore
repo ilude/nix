@@ -22,6 +22,8 @@ tags
 .version-suffix
 .secrets
 .env
+*.bak
+*.orig
 
 .DS_Store
 .mypy_cache
