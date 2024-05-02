@@ -18,5 +18,5 @@ qm set ${VM_ID:-8500} --scsi0 $(pvesm list ${VM_STORAGE:-local-lvm} | grep "vm-$
 
 qm start ${VM_ID:-8500}
 
-# echo "cleaning up old img files..."
-# ls -t /tmp/nixos-*.img | tail -n +6 | xargs rm
+echo "cleaning up old img files..."
+ls -t /tmp/nixos-*.qcaw2 | tail -n +6 | xargs rm

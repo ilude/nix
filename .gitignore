@@ -8,6 +8,7 @@
 .nixos-test-history
 .vscode/
 outputs
+*.uploaded
 result-*
 result
 repl-result-*

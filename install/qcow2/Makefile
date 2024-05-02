@@ -1,30 +1,28 @@
-.PHONY: copy-img 
+UPLOAD_HOST := root@192.168.16.16
+UPLOAD_DIR := /tmp
+UPLOAD_FILES := outputs/nixos.qcow2 scripts/create-vm.sh
+UPLOAD_MARKERS := $(addsuffix .uploaded,$(UPLOAD_FILES))
+PREREQS := $(UPLOAD_FILES) $(UPLOAD_MARKERS)
 
-# BUILD_CONFIG := secrets-embedded-qcow2.nix
-BUILD_CONFIG := build-qcow2.nix
+.PHONY: upload clean echo
+upload: $(PREREQS)
 
-outputs/.lastuploaded: outputs/.lastbuild scripts/create-vm.sh
-	scp result/nixos.qcow2 root@192.168.16.16:/tmp/nixos-$(shell date +%y%m%d-%H%M).qcow2
-	scp scripts/create-vm.sh root@192.168.16.16:/tmp
-	touch $@
-
-# outputs/nixos-compressed.qcow2: outputs/.lastbuild 
-# 	-qemu-img convert -p -O qcow result/nixos.qcow2 outputs/nixos-compressed.qcow2
-
-outputs/.lastbuild: .secrets $(BUILD_CONFIG) machine-config.nix | outputs 
-	nix-build '<nixpkgs/nixos>' -A config.system.build.qcow2 --arg configuration "{ imports = [ ./$(BUILD_CONFIG) ]; }"
-	touch $@
-
-force:
-	touch $(BUILD_CONFIG)
-	$(MAKE)
-
-outputs: 
-	mkdir -p $@
+%.uploaded: %
+	@echo "Uploading $< to $(UPLOAD_HOST):$(UPLOAD_DIR)/$(notdir $<)"
+	@scp "$<" "$(UPLOAD_HOST):$(UPLOAD_DIR)/$(notdir $<)"
+	@touch "$@"
 
 clean:
-	rm .secrets
-	rm outputs/*
+	rm -rf outputs/nixos.qcow2 $(UPLOAD_MARKERS)
 
-.secrets:
-	scripts/create-secrets.sh
+outputs/nixos.qcow2: .secrets build-qcow2.nix machine-config.nix | outputs
+	@echo "Building $@"
+	@nix-build '<nixpkgs/nixos>' -A config.system.build.qcow2 --arg configuration "{ imports = [ ./build-qcow2.nix ]; }"
+	@cp result/nixos.qcow2 $@
+
+outputs:
+	@mkdir -p $@
+
+
+echo:
+	@echo "prereqs: $(PREREQS)"
