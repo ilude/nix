@@ -8,10 +8,11 @@ UPLOAD_HOST ?= root@192.168.16.16
 
 UPLOAD_FILES := outputs/nixos.qcow2 scripts/create-vm.sh
 UPLOAD_MARKERS := $(addsuffix .uploaded,$(UPLOAD_FILES))
-PREREQS := $(UPLOAD_FILES) $(UPLOAD_MARKERS)
 
-.PHONY: upload clean echo
-upload: $(PREREQS)
+.PHONY: build upload clean echo
+upload: $(UPLOAD_MARKERS) build
+
+build: $(UPLOAD_FILES)
 
 %.uploaded: %
 	@echo "Uploading $< to $(UPLOAD_HOST):$(UPLOAD_DIR)/$(notdir $<)"
@@ -31,4 +32,5 @@ clean:
 	@rm -rf outputs/nixos.qcow2 $(UPLOAD_MARKERS)
 
 echo:
-	@echo "prereqs: $(PREREQS)"
+	@echo "UPLOAD_FILES: $(UPLOAD_FILES)"
+	@echo "UPLOAD_MARKERS: $(UPLOAD_MARKERS)"
