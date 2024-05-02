@@ -1,6 +1,6 @@
 .PHONY: copy-img 
 
-outputs/.lastuploaded: outputs/nixos-compressed.qcow2
+outputs/.lastuploaded: outputs/nixos-compressed.qcow2 scripts/create-vm.sh
 	scp outputs/nixos-compressed.qcow2 root@192.168.16.16:/tmp/nixos-$(shell date +%y%m%d-%H%M).img
 	scp scripts/create-vm.sh root@192.168.16.16:/tmp
 	touch $@
