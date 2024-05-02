@@ -1,6 +1,6 @@
 { pkgs, lib, ... }: let
   # Import the secrets.nix file
-  secrets = import ./secrets.nix;
+  secrets = import ./.secrets;
 in {
   imports = [
     <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
