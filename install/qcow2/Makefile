@@ -15,6 +15,10 @@ outputs/.lastbuild: .secrets build-qcow2.nix machine-config.nix | outputs
 outputs:
 	mkdir -p $@
 
+clean:
+	rm .secrets
+	rm outputs/*
+
 .secrets:
 	@if [ ! -f ".secrets" ]; then \
 		read -p "Enter your desired username: " -r username; \
