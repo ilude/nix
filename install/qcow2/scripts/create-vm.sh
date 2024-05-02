@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -ex
+set -e
 
 if [[ $(qm list | grep -v grep | grep -ci ${VM_ID:-8500}) > 0 ]]; then
   qm stop ${VM_ID:-8500} --skiplock && qm destroy ${VM_ID:-8500} --destroy-unreferenced-disks --purge
